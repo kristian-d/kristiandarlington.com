@@ -7,7 +7,6 @@ import (
 
 type Config struct {
 	Original string
-	Address string
 	Port string
 	ReadTimeout uint16 `yaml:"readTimeout"`
 	WriteTimeout uint16 `yaml:"writeTimeout"`
@@ -17,7 +16,6 @@ type Config struct {
 var (
 	DefaultConfig = Config{
 		Original: "",
-		Address: "127.0.0.1",
 		Port: "8080",
 		ReadTimeout: 5000,
 		WriteTimeout: 5000,
