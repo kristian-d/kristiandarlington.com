@@ -8,6 +8,7 @@ import (
 	"github.com/kristian-d/kristiandarlington.com/web/ui"
 	"log"
 	"net/http"
+	"os"
 	"path"
 	"time"
 )
@@ -27,8 +28,13 @@ func main() {
 	mux.HandleFunc("/contact/", web.Contact)
 	mux.Handle("/static/", http.FileServer(ui.Assets))
 
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = cfg.Port
+	}
 	srv := &http.Server{
-		Addr:         cfg.Address + ":" + cfg.Port,
+		Addr:         cfg.Address + ":" + port,
 		Handler:      mux,
 		ReadTimeout:  time.Duration(cfg.ReadTimeout) * time.Millisecond,
 		WriteTimeout: time.Duration(cfg.WriteTimeout) * time.Millisecond,
