@@ -1,4 +1,0 @@
-port: 8080
-readTimeout: 10000 # milliseconds
-writeTimeout: 10000 # milliseconds
-maxConnections: 256

@@ -14,10 +14,24 @@ import (
 )
 
 func main() {
-	configPath := path.Join(projectpath.Root, "config/kristiandarlington.com.yml")
-	cfg, err := config.LoadFile(configPath)
-	if err != nil { // TODO: do better
-		log.Fatal(err)
+	var cfg *config.Config
+	env := os.Getenv("ENV")
+	switch env {
+	case "prod":
+		var err error
+		cfg, err = config.LoadEnv()
+		if err != nil {
+			log.Fatal(err)
+		}
+	case "local":
+		configPath := path.Join(projectpath.Root, "config/local.yml")
+		var err error
+		cfg, err = config.LoadFile(configPath)
+		if err != nil { // TODO: do better
+			log.Fatal(err)
+		}
+	default:
+		log.Fatal("unknown environment")
 	}
 
 	mux := http.NewServeMux()
@@ -28,17 +42,13 @@ func main() {
 	mux.HandleFunc("/contact/", web.Contact)
 	mux.Handle("/static/", http.FileServer(ui.Assets))
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = cfg.Port
-	}
 	srv := &http.Server{
-		Addr:         ":" + port,
+		Addr:         ":" + cfg.Server.Port,
 		Handler:      mux,
-		ReadTimeout:  time.Duration(cfg.ReadTimeout) * time.Millisecond,
-		WriteTimeout: time.Duration(cfg.WriteTimeout) * time.Millisecond,
+		ReadTimeout:  time.Duration(cfg.Server.ReadTimeout) * time.Millisecond,
+		WriteTimeout: time.Duration(cfg.Server.WriteTimeout) * time.Millisecond,
 	}
 
-	fmt.Printf("Server listening on port %s\n", cfg.Port)
+	fmt.Printf("Server listening on port %s\n", cfg.Server.Port)
 	log.Fatal(srv.ListenAndServe())
 }
