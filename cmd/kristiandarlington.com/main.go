@@ -17,7 +17,7 @@ func main() {
 	configPath := path.Join(projectpath.Root, "config/kristiandarlington.com.yml")
 	cfg, err := config.LoadFile(configPath)
 	if err != nil { // TODO: do better
-		log.Fatal("could not process config at " + configPath)
+		log.Fatal(err)
 	}
 
 	mux := http.NewServeMux()
