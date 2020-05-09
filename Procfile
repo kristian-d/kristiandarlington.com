@@ -1,0 +1,1 @@
+web: go run cmd/kristiandarlington.com/main.go
