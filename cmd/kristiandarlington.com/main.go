@@ -28,13 +28,16 @@ func main() {
 	mux.HandleFunc("/contact/", web.Contact)
 	mux.Handle("/static/", http.FileServer(ui.Assets))
 
-
+	ip := os.Getenv("IP")
+	if ip == "" {
+		ip = cfg.Address
+	}
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = cfg.Port
 	}
 	srv := &http.Server{
-		Addr:         cfg.Address + ":" + port,
+		Addr:         ip + ":" + port,
 		Handler:      mux,
 		ReadTimeout:  time.Duration(cfg.ReadTimeout) * time.Millisecond,
 		WriteTimeout: time.Duration(cfg.WriteTimeout) * time.Millisecond,
