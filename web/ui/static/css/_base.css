@@ -1,0 +1,29 @@
+.topnav {
+    background-color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.topnav li {
+    display: inline;
+}
+
+.topnav a {
+    color: black;
+    transition: color 0.4s;
+    display: inline-block;
+    padding: 14px 16px;
+    border-radius: 12px 12px 12px 12px;
+    text-decoration: none;
+    font-family: "Roboto Thin";
+    font-size: 19px;
+    font-weight: lighter;
+}
+
+.topnav a:hover {
+    color: #3661bf;
+}
+
+.topnav hr {
+    color: lightgray;
+}

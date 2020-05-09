@@ -1,0 +1,4 @@
+*.exe
+*.yaml
+*.yml
+.idea/

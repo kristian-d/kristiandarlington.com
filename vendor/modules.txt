@@ -1,0 +1,6 @@
+# github.com/shurcooL/httpfs v0.0.0-20190707220628-8d4bc4ba7749
+## explicit
+github.com/shurcooL/httpfs/union
+# gopkg.in/yaml.v3 v3.0.0-20200506231410-2ff61e1afc86
+## explicit
+gopkg.in/yaml.v3
