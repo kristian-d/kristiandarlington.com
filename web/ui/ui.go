@@ -8,7 +8,7 @@ import (
 
 // Assets contains the project's assets.
 var Assets = func() http.FileSystem {
-	assetsPrefix := "~/web/ui/"
+	assetsPrefix := "/app/web/ui/"
 
 	// if I ever need to filter out files from the fs, can look at "github.com/shurcooL/httpfs/filter"
 	static := http.Dir(path.Join(assetsPrefix, "static"))
