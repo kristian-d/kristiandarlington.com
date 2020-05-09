@@ -15,9 +15,10 @@
     padding: 14px 16px;
     border-radius: 12px 12px 12px 12px;
     text-decoration: none;
-    font-family: "Roboto Thin";
+    font-family: Arial, sans-serif;
     font-size: 19px;
     font-weight: lighter;
+    letter-spacing: 2px;
 }
 
 .topnav a:hover {
