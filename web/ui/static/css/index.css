@@ -5,9 +5,9 @@
     justify-content: center;
     font-family: "Trebuchet MS", sans-serif;
     flex-grow: 1;
-    animation: fadeIn ease 3.2s;
-    -webkit-animation: fadeIn ease 3.2s;
-    -moz-animation: fadeIn ease 3.2s;
+    animation: fadeIn ease 2.5s;
+    -webkit-animation: fadeIn ease 2.5s;
+    -moz-animation: fadeIn ease 2.5s;
 }
 
 .intro-statement h1 {

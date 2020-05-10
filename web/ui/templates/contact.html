@@ -1,6 +1,20 @@
 {{define "head"}}
+    <link type="text/css" rel="stylesheet" href="/static/css/contact.css">
 {{end}}
 
 {{define "main"}}
-    <p style="text-align:center; font-family:'Times New Roman'; font-size: 24px">Page in progress!</p>
+    <div class="contact-me">
+        <p>Please contact me via the form below.</p>
+        <form action="/contact" method="post" onsubmit="alert('Message sent');">
+            <div>
+                <label for="email">Email:</label><br>
+                <textarea rows="1" cols="100" maxlength="50"></textarea>
+            </div>
+            <div>
+                <label for="message">Message:</label><br>
+                <textarea rows="15" cols="100" maxlength="1250"></textarea>
+            </div>
+            <input type="submit" value="Send">
+        </form>
+    </div>
 {{end}}

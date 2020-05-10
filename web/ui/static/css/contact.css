@@ -1,0 +1,46 @@
+.contact-me {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    justify-content: center;
+    flex-grow: 1;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 16px;
+}
+
+.contact-me p {
+    margin-bottom: 25px;
+}
+
+.contact-me textarea {
+    outline: none;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 30vw;
+    resize: none;
+    font-family: "Times New Roman", serif;
+    font-size: 16px;
+    margin-top: 4px;
+}
+
+.contact-me div:nth-child(1) textarea {
+    margin-bottom: 15px;
+}
+
+.contact-me div:nth-child(2) textarea {
+    margin-bottom: 5px;
+    overflow: auto;
+}
+
+.contact-me input[type=submit] {
+    background-color: black;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    height: 10%;
+    width: 18%;
+    font-size: 100%;
+    font-family: "Trebuchet MS", sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+}
