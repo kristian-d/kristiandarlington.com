@@ -24,10 +24,24 @@ body {
 
 .topnav-box:nth-child(1) {
     width: 15%;
+    justify-content: center;
 }
 
-.topnav-box:nth-child(1) p {
-    font-size: 1.2vw;
+.topnav-box:nth-child(1) a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 65%;
+    width: 14vw;
+    padding: 0px 3px 0px 3px;
+}
+
+.topnav-box:nth-child(1) svg {
+    transition: fill 0.4s;
+    -webkit-transition: fill 0.4s;
+    -moz-transition: fill 0.4s;
+    height: 100%;
+    width: 100%;
 }
 
 .topnav-box:nth-child(2) {
