@@ -1,41 +1,60 @@
+body {
+    margin: auto;
+}
+
 .topnav-wrapper {
-    width: 100%;
-    background-color: white;
+    height: 8vh;
+    min-height: 50px;
+    width: 100vw;
     overflow: hidden;
 }
 
 .topnav-wrapper hr {
     color: lightgray;
+    height: 4%;
 }
 
 .topnav-box {
+    height: 96%;
     float: left;
-    height: 70px;
+    display: flex;
+    align-items: center; /* vertical alignment */
+    justify-content: center; /* horizontal alignment */
 }
 
 .topnav-box:nth-child(1) {
     width: 15%;
 }
 
+.topnav-box:nth-child(1) p {
+    font-size: 1.2vw;
+}
+
 .topnav-box:nth-child(2) {
     width: 70%;
     text-align: center;
-    display: flex;
-    align-items: center; /* vertical alignment */
-    justify-content: center; /* horizontal alignment */
 }
 
 .topnav-box:nth-child(3) {
     width: 15%;
+    justify-content: center;
+}
+
+.topnav-box:nth-child(3) a {
     display: flex;
-    align-items: center; /* vertical alignment */
-    justify-content: center; /* horizontal alignment */
+    align-items: center;
+    justify-content: center;
+    height: 65%;
+    width: 2.3vw;
+    padding: 0px 5px 0px 5px;
 }
 
 .topnav-box:nth-child(3) svg {
     transition: fill 0.4s;
     -webkit-transition: fill 0.4s;
     -moz-transition: fill 0.4s;
+    height: 100%;
+    width: 100%;
 }
 
 .topnav-box:nth-child(3) svg:hover {
@@ -52,15 +71,31 @@
     -webkit-transition: color 0.4s;
     -moz-transition: color 0.4s;
     display: inline-block;
-    padding: 14px 16px;
-    border-radius: 12px 12px 12px 12px;
+    padding: 0px 14px 0px 14px;
     text-decoration: none;
-    font-family: Arial, sans-serif;
-    font-size: 19px;
-    font-weight: lighter;
-    letter-spacing: 2px;
+    font-family: "Times New Roman", serif;
+    font-size: 1.4vw;
+    letter-spacing: 0.2vw;
 }
 
 .topnav-menu a:hover {
     color: #3661bf;
+}
+
+.main-content {
+    height: 84vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-wrapper {
+    height: 8vh;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 16px;
+    color: lightgray;
 }
