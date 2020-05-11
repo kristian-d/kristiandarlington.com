@@ -14,9 +14,15 @@ type server struct {
 	WriteTimeout uint64 `yaml:"writeTimeout"`
 }
 
+type EmailCredentials struct {
+	Address string `yaml:"address"`
+	Password string `yaml:"password"`
+}
+
 type Config struct {
 	Original string
-	Server server
+	Server server `yaml:"server"`
+	EmailCredentials EmailCredentials `yaml:"emailCredentials"`
 }
 
 var (
@@ -26,6 +32,10 @@ var (
 			Port: "8080",
 			ReadTimeout: 5000,
 			WriteTimeout: 5000,
+		},
+		EmailCredentials: EmailCredentials{
+			Address: "",
+			Password: "",
 		},
 	}
 )
@@ -57,6 +67,18 @@ func LoadEnv() (*Config, error) {
 		return nil, err
 	}
 
+	emailAddress := os.Getenv("EMAIL_ADDRESS")
+	if emailAddress == "" {
+		return nil, errors.New("EMAIL_ADDRESS missing in environment")
+	}
+	cfg.EmailCredentials.Address = emailAddress
+
+	emailPassword := os.Getenv("EMAIL_PASSWORD")
+	if emailPassword == "" {
+		return nil, errors.New("EMAIL_PASSWORD missing in environment")
+	}
+	cfg.EmailCredentials.Password = emailPassword
+
 	return cfg, nil
 }
 
@@ -82,9 +104,9 @@ func LoadFile(filename string) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
-	cfgAsString, err := Load(string(content))
+	cfg, err := Load(string(content))
 	if err != nil {
 		return nil, err
 	}
-	return cfgAsString, nil
+	return cfg, nil
 }

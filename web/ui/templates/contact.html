@@ -5,14 +5,16 @@
 {{define "main"}}
     <div class="contact-me">
         <p>Please contact me via the form below.</p>
-        <form action="/contact" method="post" onsubmit="alert('Message sent');">
+        <form name="contact-me-form" id="contact-me-form" action="/contact/" method="post">
             <div>
-                <label for="email">Email:</label><br>
-                <textarea rows="1" cols="100" maxlength="50"></textarea>
+                <label for="email">Email:<br>
+                <textarea name="email" form="contact-me-form" rows="1" cols="100" maxlength="50"></textarea>
+                </label>
             </div>
             <div>
-                <label for="message">Message:</label><br>
-                <textarea rows="15" cols="100" maxlength="1250"></textarea>
+                <label for="message">Message:<br>
+                <textarea name="message" form="contact-me-form" rows="15" cols="100" maxlength="1250"></textarea>
+                </label>
             </div>
             <input type="submit" value="Send">
         </form>

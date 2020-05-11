@@ -17,6 +17,7 @@
     border: 1px solid lightgray;
     border-radius: 5px;
     width: 30vw;
+    min-width: 280px;
     resize: none;
     font-family: "Times New Roman", serif;
     font-size: 16px;
