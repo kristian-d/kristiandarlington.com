@@ -1,10 +1,13 @@
 package web
 
 import (
+	"fmt"
+	"github.com/kristian-d/kristiandarlington.com/config"
 	"github.com/kristian-d/kristiandarlington.com/web/ui"
 	"html/template"
 	"io/ioutil"
 	"net/http"
+	"net/smtp"
 	"path"
 )
 
@@ -36,7 +39,7 @@ func getTemplate(templateName string) (string, error) {
 	return tmpl, nil
 }
 
-func Index(w http.ResponseWriter, r *http.Request) {
+func index(w http.ResponseWriter, r *http.Request) {
 	rawTmpl, err := getTemplate( "index.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -50,7 +53,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, nil)
 }
 
-func Projects(w http.ResponseWriter, r *http.Request) {
+func projects(w http.ResponseWriter, r *http.Request) {
 	rawTmpl, err := getTemplate("projects.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -64,7 +67,7 @@ func Projects(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, nil)
 }
 
-func Resume(w http.ResponseWriter, r *http.Request) {
+func resume(w http.ResponseWriter, r *http.Request) {
 	rawTmpl, err := getTemplate("resume.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -78,7 +81,7 @@ func Resume(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, nil)
 }
 
-func About(w http.ResponseWriter, r *http.Request) {
+func about(w http.ResponseWriter, r *http.Request) {
 	rawTmpl, err := getTemplate("about.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -92,7 +95,7 @@ func About(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, nil)
 }
 
-func Contact(w http.ResponseWriter, r *http.Request) {
+func contact(w http.ResponseWriter, r *http.Request) {
 	rawTmpl, err := getTemplate("contact.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -104,4 +107,27 @@ func Contact(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	err = tmpl.Execute(w, nil)
+}
+
+func contactSend(w http.ResponseWriter, r *http.Request, emailCreds config.EmailCredentials) {
+	err := r.ParseForm(); if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	returnAddress := r.FormValue("email")
+	message:= r.FormValue("message")
+
+	content := "From: " + emailCreds.Address + "\n" +
+		"To: " + emailCreds.Address + "\n" +
+		"Subject: [Message from kristiandarlington.com]\n\n" +
+		"Provided return address: " + returnAddress + "\n\n" + message
+
+	err = smtp.SendMail(
+		"smtp.gmail.com:587",
+		smtp.PlainAuth("", emailCreds.Address, emailCreds.Password, "smtp.gmail.com"),
+		emailCreds.Address,
+		[]string{emailCreds.Address},
+		[]byte(content))
+	if err != nil {
+		http.Error(w, "", http.StatusInternalServerError)
+	}
 }
