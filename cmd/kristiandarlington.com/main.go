@@ -42,6 +42,8 @@ func main() {
 	mux.HandleFunc("/contact/", web.Contact)
 	mux.Handle("/static/", http.FileServer(ui.Assets))
 
+	mux.Handle("/.well-known/", http.FileServer(ui.Assets))
+
 	srv := &http.Server{
 		Addr:         ":" + cfg.Server.Port,
 		Handler:      mux,
