@@ -1,13 +1,14 @@
 package web
 
 import (
-	"fmt"
+	"encoding/json"
 	"github.com/kristian-d/kristiandarlington.com/config"
 	"github.com/kristian-d/kristiandarlington.com/web/ui"
 	"html/template"
 	"io/ioutil"
 	"net/http"
 	"net/smtp"
+	"net/url"
 	"path"
 )
 
@@ -109,25 +110,63 @@ func contact(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, nil)
 }
 
-func contactSend(w http.ResponseWriter, r *http.Request, emailCreds config.EmailCredentials) {
+func contactSend(w http.ResponseWriter, r *http.Request, cfg config.Config) {
 	err := r.ParseForm(); if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	returnAddress := r.FormValue("email")
 	message:= r.FormValue("message")
+	recaptchaResponse := r.FormValue("g-recaptcha-response")
 
-	content := "From: " + emailCreds.Address + "\n" +
-		"To: " + emailCreds.Address + "\n" +
+	validation, recaptchaErr := http.PostForm("https://www.google.com/recaptcha/api/siteverify",
+		url.Values{ "secret": {cfg.RecaptchaSecretKey}, "response": {recaptchaResponse}})
+	if recaptchaErr != nil {
+		http.Error(w, recaptchaErr.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	v := struct{
+		success bool `json:"success"`
+		challengeTs string `json:"challenge_ts"`
+		hostname string `json:"hostname"`
+		errorCodes []string `json:"error-codes"`
+	}{
+		success: false,
+		challengeTs: "",
+		hostname: "",
+		errorCodes: []string{},
+	}
+
+	validationBytes, validationErr := ioutil.ReadAll(validation.Body)
+	if validationErr != nil {
+		http.Error(w, validationErr.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = json.Unmarshal(validationBytes, &v); if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if v.success == false {
+		http.Error(w, "recaptcha failed verification", http.StatusInternalServerError)
+		return
+	}
+
+	content := "From: " + cfg.EmailCredentials.Address + "\n" +
+		"To: " + cfg.EmailCredentials.Address + "\n" +
 		"Subject: [Message from kristiandarlington.com]\n\n" +
 		"Provided return address: " + returnAddress + "\n\n" + message
 
 	err = smtp.SendMail(
 		"smtp.gmail.com:587",
-		smtp.PlainAuth("", emailCreds.Address, emailCreds.Password, "smtp.gmail.com"),
-		emailCreds.Address,
-		[]string{emailCreds.Address},
+		smtp.PlainAuth("", cfg.EmailCredentials.Address, cfg.EmailCredentials.Password, "smtp.gmail.com"),
+		cfg.EmailCredentials.Address,
+		[]string{cfg.EmailCredentials.Address},
 		[]byte(content))
 	if err != nil {
 		http.Error(w, "", http.StatusInternalServerError)
+		return
 	}
 }

@@ -23,6 +23,7 @@ type Config struct {
 	Original string
 	Server server `yaml:"server"`
 	EmailCredentials EmailCredentials `yaml:"emailCredentials"`
+	RecaptchaSecretKey string `yaml:"recaptchaSecretKey"`
 }
 
 var (
@@ -37,6 +38,7 @@ var (
 			Address: "",
 			Password: "",
 		},
+		RecaptchaSecretKey: "",
 	}
 )
 
@@ -78,6 +80,12 @@ func LoadEnv() (*Config, error) {
 		return nil, errors.New("EMAIL_PASSWORD missing in environment")
 	}
 	cfg.EmailCredentials.Password = emailPassword
+
+	recaptchaSecretKey := os.Getenv("RECAPTCHA_SECRET_KEY")
+	if recaptchaSecretKey == "" {
+		return nil, errors.New("RECAPTCHA_SECRET_KEY missing in environment")
+	}
+	cfg.RecaptchaSecretKey = recaptchaSecretKey
 
 	return cfg, nil
 }

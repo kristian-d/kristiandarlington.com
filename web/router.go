@@ -46,7 +46,7 @@ func NewRouter(cfg *config.Config) *mux.Router {
 			"POST",
 			"/contact/",
 			func (w http.ResponseWriter, r *http.Request) {
-				contactSend(w, r, cfg.EmailCredentials)
+				contactSend(w, r, *cfg)
 			},
 		},
 	}
