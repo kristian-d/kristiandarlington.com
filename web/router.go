@@ -16,7 +16,7 @@ type route struct {
 
 type routes []route
 
-/*func httpsRedirectMiddleware(next http.Handler) http.Handler {
+func httpsRedirectMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		proto := req.Header.Get("x-forwarded-proto")
 		if proto == "http" || proto == "HTTP" {
@@ -26,13 +26,9 @@ type routes []route
 
 		next.ServeHTTP(res, req)
 	})
-}*/
-
-func httpsRedirectHandler(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, fmt.Sprintf("https://%s%s", r.Host, r.URL), http.StatusPermanentRedirect)
 }
 
-func NewRouter(cfg *config.Config) *mux.Router {
+func NewRouter(cfg *config.Config) http.Handler {
 	var myRoutes = routes{
 		route{
 			"GET",
@@ -73,12 +69,10 @@ func NewRouter(cfg *config.Config) *mux.Router {
 		router.
 			Methods(route.method).
 			Path(route.endpoint).
-			Handler(route.handler).
-			Schemes("https")
+			Handler(route.handler)
 	}
 
 	// for serving static files
-	router.PathPrefix("/static/").Handler(http.FileServer(ui.Assets)).Schemes("https")
-	router.PathPrefix("/").Schemes("http").HandlerFunc(httpsRedirectHandler)
-	return router
+	router.PathPrefix("/static/").Handler(http.FileServer(ui.Assets))
+	return httpsRedirectMiddleware(router)
 }
