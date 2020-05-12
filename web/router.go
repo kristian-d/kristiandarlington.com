@@ -1,11 +1,11 @@
 package web
 
 import (
-	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/kristian-d/kristiandarlington.com/config"
 	"github.com/kristian-d/kristiandarlington.com/web/ui"
 	"net/http"
+	"os"
 )
 
 type route struct {
@@ -15,20 +15,6 @@ type route struct {
 }
 
 type routes []route
-
-func httpsRedirectMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-		fmt.Printf("HOST:\t" + req.URL.Host + "\t" + req.Host)
-
-		proto := req.Header.Get("x-forwarded-proto")
-		if proto == "http" || proto == "HTTP" {
-			http.Redirect(res, req, fmt.Sprintf("https://%s%s", req.Host, req.URL), http.StatusPermanentRedirect)
-			return
-		}
-
-		next.ServeHTTP(res, req)
-	})
-}
 
 func NewRouter(cfg *config.Config) http.Handler {
 	var myRoutes = routes{
@@ -76,5 +62,13 @@ func NewRouter(cfg *config.Config) http.Handler {
 
 	// for serving static files
 	router.PathPrefix("/static/").Handler(http.FileServer(ui.Assets))
-	return httpsRedirectMiddleware(router)
+
+	switch os.Getenv("ENV") {
+	case "prod":
+		return httpsRedirectMiddleware(router)
+	case "local":
+		return router
+	default:
+		return router
+	}
 }
