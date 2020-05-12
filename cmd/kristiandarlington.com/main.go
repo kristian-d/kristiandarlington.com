@@ -5,7 +5,6 @@ import (
 	"github.com/kristian-d/kristiandarlington.com/config"
 	"github.com/kristian-d/kristiandarlington.com/internal/projectpath"
 	"github.com/kristian-d/kristiandarlington.com/web"
-	"github.com/kristian-d/kristiandarlington.com/web/ui"
 	"log"
 	"net/http"
 	"os"
@@ -34,19 +33,9 @@ func main() {
 		log.Fatal("unknown environment")
 	}
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", web.Index)
-	mux.HandleFunc("/projects/", web.Projects)
-	mux.HandleFunc("/resume/", web.Resume)
-	mux.HandleFunc("/about/", web.About)
-	mux.HandleFunc("/contact/", web.Contact)
-	mux.Handle("/static/", http.FileServer(ui.Assets))
-
-	mux.Handle("/.well-known/", http.FileServer(ui.Assets))
-
 	srv := &http.Server{
 		Addr:         ":" + cfg.Server.Port,
-		Handler:      mux,
+		Handler:      web.NewRouter(cfg),
 		ReadTimeout:  time.Duration(cfg.Server.ReadTimeout) * time.Millisecond,
 		WriteTimeout: time.Duration(cfg.Server.WriteTimeout) * time.Millisecond,
 	}
