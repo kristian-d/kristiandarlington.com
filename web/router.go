@@ -18,6 +18,8 @@ type routes []route
 
 func httpsRedirectMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+		fmt.Printf("HOST:\t" + req.URL.Host + "\t" + req.Host)
+
 		proto := req.Header.Get("x-forwarded-proto")
 		if proto == "http" || proto == "HTTP" {
 			http.Redirect(res, req, fmt.Sprintf("https://%s%s", req.Host, req.URL), http.StatusPermanentRedirect)
