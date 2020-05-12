@@ -1,6 +1,7 @@
 package web
 
 import (
+	"github.com/google/logger"
 	"github.com/gorilla/mux"
 	"github.com/kristian-d/kristiandarlington.com/config"
 	"github.com/kristian-d/kristiandarlington.com/web/ui"
@@ -14,41 +15,55 @@ type route struct {
 	handler http.HandlerFunc
 }
 
+type handler struct {
+	cfg *config.Config
+	logger *logger.Logger
+}
+
 type routes []route
 
-func NewRouter(cfg *config.Config) http.Handler {
+func handlerize(fn func (http.ResponseWriter, *http.Request)) http.HandlerFunc {
+	return func (w http.ResponseWriter, r *http.Request) {
+		fn(w, r)
+	}
+}
+
+func NewRouter(cfg *config.Config, logger *logger.Logger) http.Handler {
+	var h = &handler{
+		cfg: cfg,
+		logger: logger,
+	}
+
 	var myRoutes = routes{
 		route{
 			"GET",
 			"/",
-			index,
+			handlerize(h.index),
 		},
 		route{
 			"GET",
 			"/projects/",
-			projects,
+			handlerize(h.projects),
 		},
 		route{
 			"GET",
 			"/resume/",
-			resume,
+			handlerize(h.resume),
 		},
 		route{
 			"GET",
 			"/about/",
-			about,
+			handlerize(h.about),
 		},
 		route{
 			"GET",
 			"/contact/",
-			contact,
+			handlerize(h.contact),
 		},
 		route{
 			"POST",
 			"/contact/",
-			func (w http.ResponseWriter, r *http.Request) {
-				contactSend(w, r, *cfg)
-			},
+			handlerize(h.contactSend),
 		},
 	}
 

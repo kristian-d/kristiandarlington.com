@@ -2,7 +2,6 @@ package web
 
 import (
 	"encoding/json"
-	"github.com/kristian-d/kristiandarlington.com/config"
 	"github.com/kristian-d/kristiandarlington.com/web/ui"
 	"html/template"
 	"io/ioutil"
@@ -40,7 +39,7 @@ func getTemplate(templateName string) (string, error) {
 	return tmpl, nil
 }
 
-func index(w http.ResponseWriter, r *http.Request) {
+func (h *handler) index(w http.ResponseWriter, r *http.Request) {
 	rawTmpl, err := getTemplate( "index.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -54,7 +53,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, nil)
 }
 
-func projects(w http.ResponseWriter, r *http.Request) {
+func (h *handler) projects(w http.ResponseWriter, r *http.Request) {
 	rawTmpl, err := getTemplate("projects.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -68,7 +67,7 @@ func projects(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, nil)
 }
 
-func resume(w http.ResponseWriter, r *http.Request) {
+func (h *handler) resume(w http.ResponseWriter, r *http.Request) {
 	rawTmpl, err := getTemplate("resume.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -82,7 +81,7 @@ func resume(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, nil)
 }
 
-func about(w http.ResponseWriter, r *http.Request) {
+func (h *handler) about(w http.ResponseWriter, r *http.Request) {
 	rawTmpl, err := getTemplate("about.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -96,7 +95,7 @@ func about(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, nil)
 }
 
-func contact(w http.ResponseWriter, r *http.Request) {
+func (h *handler) contact(w http.ResponseWriter, r *http.Request) {
 	rawTmpl, err := getTemplate("contact.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -110,7 +109,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, nil)
 }
 
-func contactSend(w http.ResponseWriter, r *http.Request, cfg config.Config) {
+func (h *handler) contactSend(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm(); if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -120,7 +119,7 @@ func contactSend(w http.ResponseWriter, r *http.Request, cfg config.Config) {
 	recaptchaResponse := r.FormValue("g-recaptcha-response")
 
 	validation, recaptchaErr := http.PostForm("https://www.google.com/recaptcha/api/siteverify",
-		url.Values{ "secret": {cfg.RecaptchaSecretKey}, "response": {recaptchaResponse}})
+		url.Values{ "secret": {h.cfg.RecaptchaSecretKey}, "response": {recaptchaResponse}})
 	if recaptchaErr != nil {
 		http.Error(w, recaptchaErr.Error(), http.StatusInternalServerError)
 		return
@@ -154,16 +153,16 @@ func contactSend(w http.ResponseWriter, r *http.Request, cfg config.Config) {
 		return
 	}
 
-	content := "From: " + cfg.EmailCredentials.Address + "\n" +
-		"To: " + cfg.EmailCredentials.Address + "\n" +
+	content := "From: " + h.cfg.EmailCredentials.Address + "\n" +
+		"To: " + h.cfg.EmailCredentials.Address + "\n" +
 		"Subject: [Message from kristiandarlington.com]\n\n" +
 		"Provided return address: " + returnAddress + "\n\n" + message
 
 	err = smtp.SendMail(
 		"smtp.gmail.com:587",
-		smtp.PlainAuth("", cfg.EmailCredentials.Address, cfg.EmailCredentials.Password, "smtp.gmail.com"),
-		cfg.EmailCredentials.Address,
-		[]string{cfg.EmailCredentials.Address},
+		smtp.PlainAuth("", h.cfg.EmailCredentials.Address, h.cfg.EmailCredentials.Password, "smtp.gmail.com"),
+		h.cfg.EmailCredentials.Address,
+		[]string{h.cfg.EmailCredentials.Address},
 		[]byte(content))
 	if err != nil {
 		http.Error(w, "", http.StatusInternalServerError)

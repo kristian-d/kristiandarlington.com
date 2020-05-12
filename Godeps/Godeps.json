@@ -7,6 +7,11 @@
 	],
 	"Deps": [
 		{
+			"ImportPath": "github.com/google/logger",
+			"Comment": "v1.1.0",
+			"Rev": "d64dead2e63a34d5f3acf453705de00534d39eec"
+		},
+		{
 			"ImportPath": "github.com/gorilla/mux",
 			"Comment": "v1.7.4",
 			"Rev": "75dcda0896e109a2a22c9315bca3bb21b87b2ba5"
@@ -14,6 +19,18 @@
 		{
 			"ImportPath": "github.com/shurcooL/httpfs/union",
 			"Rev": "8d4bc4ba774931155e6cd5ef6098cb038dd45135"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/windows",
+			"Rev": "7e40ca221e254089b05fb9efcd69844a57f6a367"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/windows/registry",
+			"Rev": "7e40ca221e254089b05fb9efcd69844a57f6a367"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/windows/svc/eventlog",
+			"Rev": "7e40ca221e254089b05fb9efcd69844a57f6a367"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v3",
