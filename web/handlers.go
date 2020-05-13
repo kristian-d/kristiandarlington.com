@@ -139,17 +139,12 @@ func (h *handler) contactSend(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	v := struct{
-		success bool `json:"success"`
-		challengeTs string `json:"challenge_ts"`
-		hostname string `json:"hostname"`
-		errorCodes []string `json:"error-codes"`
-	}{
-		success: false,
-		challengeTs: "",
-		hostname: "",
-		errorCodes: []string{},
-	}
+	v := &struct{
+		Success bool `json:"success"`
+		ChallengeTs string `json:"challenge_ts"`
+		Hostname string `json:"hostname"`
+		ErrorCodes []string `json:"error-codes"`
+	}{}
 
 	validationBytes, validationErr := ioutil.ReadAll(validation.Body)
 	if validationErr != nil {
@@ -164,7 +159,7 @@ func (h *handler) contactSend(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if v.success == false {
+	if v.Success == false {
 		h.logger.Info(fmt.Sprintf("recaptcha failed verification body=%+v\tunmarshalled=%+v", string(validationBytes), v))
 		http.Error(w, "recaptcha failed verification", http.StatusInternalServerError)
 		return
