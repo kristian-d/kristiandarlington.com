@@ -165,7 +165,7 @@ func (h *handler) contactSend(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if v.success == false {
-		h.logger.Info(fmt.Sprintf("recaptcha failed verification res=%+v", v))
+		h.logger.Info(fmt.Sprintf("recaptcha failed verification body=%+v\tunmarshalled=%+v", string(validationBytes), v))
 		http.Error(w, "recaptcha failed verification", http.StatusInternalServerError)
 		return
 	}
