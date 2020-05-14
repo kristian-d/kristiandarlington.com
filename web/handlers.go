@@ -181,4 +181,5 @@ func (h *handler) contactSend(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
+	http.Redirect(w, r, "https://www.kristiandarlington.com/contact/", http.StatusSeeOther)
 }

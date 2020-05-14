@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <style>
+            html {
+                display: none;
+            }
+        </style> <!-- hide html until page loads to prevent FOUC -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home</title>
@@ -14,6 +19,7 @@
         {{template "head" .}}
     </head>
     <body>
+        <link rel="stylesheet" href="/static/css/fouc.css"> <!-- display html on load (yes, it is a smell to have link in body)-->
         <header class="topnav-wrapper">
             <div class="topnav-box">
                 <a href="/">
