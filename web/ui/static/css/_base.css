@@ -98,7 +98,7 @@ body {
 
 .main-content {
     height: 84vh;
-    overflow: hidden;
+    overflow: scroll;
     display: flex;
     flex-direction: column;
 }
