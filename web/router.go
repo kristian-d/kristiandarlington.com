@@ -22,9 +22,9 @@ type handler struct {
 
 type routes []route
 
-func handlerize(fn func (http.ResponseWriter, *http.Request)) http.HandlerFunc {
+func handlerize(fn func (http.ResponseWriter, *http.Request, interface{})) http.HandlerFunc {
 	return func (w http.ResponseWriter, r *http.Request) {
-		fn(w, r)
+		fn(w, r, nil)
 	}
 }
 

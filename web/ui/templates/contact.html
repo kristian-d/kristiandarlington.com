@@ -1,6 +1,6 @@
 {{define "head"}}
     <link type="text/css" rel="stylesheet" href="/static/css/contact.css">
-    <link type="text/css" rel="stylesheet" href="/static/css/loadanimation.css">
+    {{template "load_animation_head" .}}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         function loading() {
@@ -27,9 +27,5 @@
             <input type="submit" value="Send">
         </form>
     </div>
-    <div id="loading-dots" class="loading-dots">
-        <div class="loading-dot dot-1"></div>
-        <div class="loading-dot dot-2"></div>
-        <div class="loading-dot dot-3"></div>
-    </div>
+    {{template "load_animation" .}}
 {{end}}

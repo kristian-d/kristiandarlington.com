@@ -16,10 +16,35 @@
         <link rel="manifest" href="/static/icons/site.webmanifest">
         <link type="text/css" rel="stylesheet" href="/static/css/_base.css">
 
+        {{if .CenterPopupNotification}}
+        <script>
+            function removeNotification() {
+                document.getElementById("center-popup-notification-wrapper").remove();
+            }
+        </script>
+        {{end}}
+
         {{template "head" .}}
     </head>
     <body>
         <link rel="stylesheet" href="/static/css/fouc.css"> <!-- display html on load (yes, it is a smell to have link in body)-->
+        {{if .CenterPopupNotification}}
+            <div class="center-popup-notification-wrapper" id="center-popup-notification-wrapper">
+                <div class="center-popup-notification-box">
+                    <div>
+                        <button onclick="removeNotification()">
+                            <svg viewBox="0 -1 14 14">
+                                <line x1="1" y1="11" x2="11" y2="1" stroke="black" stroke-width="2"/>
+                                <line x1="1" y1="1" x2="11" y2="11" stroke="black" stroke-width="2"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div>
+                        <p class="center-popup-notification" id="center-popup-notification">{{.CenterPopupNotification}}</p>
+                    </div>
+                </div>
+            </div>
+        {{end}}
         <header class="topnav-wrapper">
             <div class="topnav-box">
                 <a href="/">

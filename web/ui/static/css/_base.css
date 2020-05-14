@@ -115,3 +115,61 @@ body {
     font-size: 16px;
     color: lightgray;
 }
+
+.center-popup-notification-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.9);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.center-popup-notification-box {
+    display: flex;
+    flex-direction: column;
+    height: 20%;
+    min-width: 30%;
+    width: auto;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+    border-radius: 4px;
+    color: black;
+    font-family: "Trebuchet MS", sans-serif;
+    text-align: center;
+}
+
+.center-popup-notification-box div:nth-child(1) {
+    position: relative;
+    height: 4%;
+    width: 100%;
+}
+
+.center-popup-notification-box button {
+    float: right;
+    margin-top: 3px;
+    margin-right: 3px;
+    height: 30px;
+    width: 30px;
+    background: none;
+    border-style: none;
+}
+
+.center-popup-notification-box button svg {
+    height: 100%;
+    width: 100%;
+    fill: black;
+}
+
+.center-popup-notification-box div:nth-child(2) {
+    display: flex;
+    height: 90%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
