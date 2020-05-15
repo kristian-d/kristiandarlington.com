@@ -1,0 +1,12 @@
+.about-me {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    height: 100%;
+    width: 40%;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 16px;
+}
