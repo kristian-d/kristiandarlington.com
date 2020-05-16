@@ -26,16 +26,17 @@ body {
 }
 
 .topnav-box:nth-child(1) {
-    width: 15%;
-    justify-content: flex-end;
+    width: 20%;
+    justify-content: flex-start;
 }
 
 .topnav-box:nth-child(1) a {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 8px;
     height: 65%;
-    width: 14vw;
+    width: 70%;
     padding: 0px 3px 0px 3px;
 }
 
@@ -48,13 +49,13 @@ body {
 }
 
 .topnav-box:nth-child(2) {
-    width: 70%;
+    width: 60%;
     text-align: center;
 }
 
 .topnav-box:nth-child(3) {
-    width: 15%;
-    justify-content: center;
+    width: 20%;
+    justify-content: flex-end;
 }
 
 .topnav-box:nth-child(3) a {
@@ -63,7 +64,7 @@ body {
     justify-content: center;
     height: 65%;
     width: 2.3vw;
-    padding: 0px 5px 0px 5px;
+    padding: 0px 14px 0px 0px;
 }
 
 .topnav-box:nth-child(3) svg {
@@ -91,7 +92,7 @@ body {
     padding: 0px 14px 0px 14px;
     text-decoration: none;
     font-family: "Times New Roman", serif;
-    font-size: 1.4vw;
+    font-size: calc(8px + 0.8vw);
     letter-spacing: 0.2vw;
 }
 
