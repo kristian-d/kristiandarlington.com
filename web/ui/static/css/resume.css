@@ -1,0 +1,97 @@
+.resume {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 75%;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.section-title-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%
+}
+
+.section-title {
+    font-size: 20px;
+}
+
+.subject-container {
+    width: 95%;
+}
+
+.subject-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.subject-heading div:nth-child(1) {
+    width: 55%;
+}
+
+.subject-heading div:nth-child(2) {
+    width: 45%;
+}
+
+.subject-title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 2px;
+    font-size: 15px;
+}
+
+.date-range {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 2px;
+    font-style: italic;
+}
+
+.subject-note {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.subject-descriptor-list {
+    margin-top: 0.8%;
+    margin-bottom: 1%;
+}
+
+.subject-descriptor-list li {
+    margin-bottom: 6px;
+}
+
+.skill-overview-grid {
+    display: flex;
+    width: 95%;
+}
+
+.skill-overview-grid div {
+    width: 33.3%;
+}
+
+.skill-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 15px;
+}

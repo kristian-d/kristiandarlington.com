@@ -1,9 +1,9 @@
 .contact-me {
     display: flex;
     flex-direction: column;
-    margin: auto;
     justify-content: center;
     flex-grow: 1;
+    margin: auto;
     font-family: "Trebuchet MS", sans-serif;
     font-size: 16px;
 }

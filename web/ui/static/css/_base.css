@@ -6,8 +6,8 @@ body {
 }
 
 .topnav-wrapper {
-    height: 8%;
-    min-height: 50px;
+    height: 7%;
+    min-height: 70px;
     width: 100%;
     overflow: hidden;
 }
@@ -27,7 +27,7 @@ body {
 
 .topnav-box:nth-child(1) {
     width: 15%;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .topnav-box:nth-child(1) a {
