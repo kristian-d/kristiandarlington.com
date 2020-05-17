@@ -1,0 +1,32 @@
+.projects {
+    width: 100%;
+}
+
+.project-listing {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.project-title-container {
+    width: 30%;
+    height: 20%;
+}
+
+.project-title {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: calc(16px + 1vw);
+    padding-left: 14px;
+}
+
+.project-description-container {
+    width: 30%;
+    color: grey;
+    font-family: "Times New Roman", sans-serif;
+    font-size: calc(10px + 0.8vw);
+}
+
+.project-report-showcase {
+    width: 50%;
+}

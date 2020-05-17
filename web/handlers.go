@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/google/logger"
+	"github.com/kristian-d/kristiandarlington.com/docs"
 	"github.com/kristian-d/kristiandarlington.com/web/ui"
 	"html"
 	"html/template"
@@ -67,6 +68,25 @@ func (h *handler) index(w http.ResponseWriter, r *http.Request, data interface{}
 
 func (h *handler) projects(w http.ResponseWriter, r *http.Request, data interface{}) {
 	h.executeTemplates(w, []string{"projects.html"}, data)
+}
+
+func (h *handler) projectReports(w http.ResponseWriter, r *http.Request, data interface{}) {
+	h.logger.Info(r.URL.Path)
+	filepath := r.URL.Path
+	file, err := docs.Docs.Open(filepath); if err != nil {
+		h.logger.Error(fmt.Sprintf("%s not found", filepath))
+		http.Error(w, "failed to provide file", http.StatusNotFound)
+		return
+	}
+	defer file.Close()
+	filestats, err := file.Stat(); if err != nil {
+		h.logger.Error(fmt.Sprintf("failed to get stats for %s", filepath))
+		http.Error(w, "failed to provide file", http.StatusInternalServerError)
+		return
+	}
+	_, filename := path.Split(filepath)
+	modtime := filestats.ModTime()
+	http.ServeContent(w, r, filename, modtime, file)
 }
 
 func (h *handler) resume(w http.ResponseWriter, r *http.Request, data interface{}) {

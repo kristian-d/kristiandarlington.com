@@ -47,6 +47,12 @@ func NewRouter(cfg *config.Config, logger *logger.Logger) http.Handler {
 		},
 		route{
 			"GET",
+			//"/projects/{name:^[a-z_]+\\.pdf$}", TODO: investigate
+			"/projects/{filename}",
+			handlerize(h.projectReports),
+		},
+		route{
+			"GET",
 			"/resume/",
 			handlerize(h.resume),
 		},
