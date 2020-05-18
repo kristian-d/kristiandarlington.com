@@ -21,13 +21,13 @@
 
 .project-title {
     font-family: "Trebuchet MS", sans-serif;
-    font-size: calc(16px + 0.8vw);
+    font-size: calc(12px + 0.5vw);
     padding-left: 14px;
     padding-right: 7px;
 }
 
 .project-description-container {
-    width: 70%;
+    width: 65%;
     color: grey;
     font-family: "Times New Roman", sans-serif;
     font-size: calc(8px + 0.6vw);
@@ -42,7 +42,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 10%;
+    width: 15%;
 }
 
 .project-report-showcase a {
@@ -53,4 +53,6 @@
     text-decoration: none;
     color: #3661bf;
     font-size: calc(10px + 0.5vw);
+    padding-left: 4px;
+    padding-right: 4px;
 }
