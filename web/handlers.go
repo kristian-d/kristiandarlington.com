@@ -71,7 +71,6 @@ func (h *handler) projects(w http.ResponseWriter, r *http.Request, data interfac
 }
 
 func (h *handler) projectReports(w http.ResponseWriter, r *http.Request, data interface{}) {
-	h.logger.Info(r.URL.Path)
 	filepath := r.URL.Path
 	file, err := docs.Docs.Open(filepath); if err != nil {
 		h.logger.Error(fmt.Sprintf("%s not found", filepath))

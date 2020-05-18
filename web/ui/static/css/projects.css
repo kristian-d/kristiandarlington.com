@@ -2,11 +2,16 @@
     width: 100%;
 }
 
+.projects hr {
+    width: 90%;
+}
+
 .project-listing {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    width: 100%;
+    justify-content: center;
+    width: 90%;
+    margin: auto;
 }
 
 .project-title-container {
@@ -16,17 +21,32 @@
 
 .project-title {
     font-family: "Trebuchet MS", sans-serif;
-    font-size: calc(16px + 1vw);
+    font-size: calc(16px + 0.8vw);
     padding-left: 14px;
+    padding-right: 7px;
 }
 
 .project-description-container {
-    width: 30%;
+    width: 60%;
     color: grey;
     font-family: "Times New Roman", sans-serif;
-    font-size: calc(10px + 0.8vw);
+    font-size: calc(10px + 0.6vw);
+}
+
+.project-description-container p {
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 .project-report-showcase {
-    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
+.project-report-showcase a {
+    text-decoration: none;
+    color: #3661bf;
+    font-size: calc(14px + 0.8vw);
 }
