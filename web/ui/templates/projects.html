@@ -42,8 +42,17 @@
             <div class="project-title-container">
                 <h1 class="project-title">TreeGen: Determining the Optimal Planting Arrangement of Trees for Survival</h1>
             </div>
-            <div class="project-description-container"></div>
-            <div class="project-report-showcase"><a href="/projects/detecting_vessel_transits_in_spectrograms.pdf" target="_blank">Download Report</a></div>
+            <div class="project-description-container">
+                <p>
+                    TreeGen is an experiment in designing a genetic algorithm from start to finish and using it to find the optimal planting arrangements for the survival of trees
+                    given some environmental conditions. The project was completed alongside Rhett Devlin and Austin Lee, both UVIC Software Engineering students. Conditions include
+                    the availability of water, availability of sunlight, and soil type in a particular area. The fitness function for the algorithm uses the ratio of surviving trees
+                    versus total competition for resources in the environment to provide a score; trees are deemed alive or dead by thresholding the amount of resources in the area
+                    surrounding the respective tree, while competition is calculated by summing the number of trees close to another tree. The algorithm terminates when the fitness
+                    score ceases to change over a defined number of generations.
+                </p>
+            </div>
+            <div class="project-report-showcase"><a href="/projects/treegen_report.pdf" target="_blank">Download Report</a></div>
         </div>
     </div>
 {{end}}
