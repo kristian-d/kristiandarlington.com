@@ -3,3 +3,4 @@
 *.yml
 *.key
 .idea/
+.DS_Store
