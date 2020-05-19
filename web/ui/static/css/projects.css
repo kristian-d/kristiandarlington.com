@@ -38,6 +38,11 @@
     padding-right: 7px;
 }
 
+.project-description-container p a {
+    text-decoration: none;
+    color: #3661bf;
+}
+
 .project-report-showcase {
     display: flex;
     justify-content: center;
